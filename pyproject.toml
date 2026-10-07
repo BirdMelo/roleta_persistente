@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "roletas_custimizadas"
+version = "0.0.1"
+description = "Uma descrição curta do meu projeto Python"
+readme = "README.md"
+requires-python = ">=3.13"
+license = "MIT"
+authors = [
+    { name = "João Pedro de Melo Naves", email = "joao.naves@sempreceub.com" },
+    { name = "Rodrigo Viera", email = "seuemail@exemplo.com" },
+    { name = "Maurício", email = "seuemail@exemplo.com" }
+]
+dynamic = ["dependencies", "optional-dependencies"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
+[tool.taskipy.tasks]
+version_update = "python roletas_customizadas/manage.py version_update"

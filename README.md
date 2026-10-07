@@ -1,17 +1,17 @@
-# [Nome do Projeto]
+# Sistema de Roletas Personalizadas
 
 > Substitua os trechos entre colchetes `[ ]` pelas informações reais do trabalho. Remova esta nota e as demais orientações em *itálico* antes da entrega.
 
-[![Status](https://img.shields.io/badge/status-[em_desenvolvimento]-yellow)]()
-[![Versão](https://img.shields.io/badge/versão-[0.1.0]-blue)]()
-[![Licença](https://img.shields.io/badge/licença-[acadêmica]-lightgrey)]()
+[![Status](https://img.shields.io/badge/status-em_desenvolvimento-yellow)]()
+[![Versão](https://img.shields.io/badge/versão-0.0.1-blue)]()
+[![Licença](https://img.shields.io/badge/licença-acadêmica-lightgrey)]()
 
-**Instituição:** [Nome da instituição]  
-**Curso:** [Nome do curso]  
-**Disciplina:** [Nome da disciplina]  
-**Turma / Semestre:** [Ex.: 2026.2]  
-**Professor(a):** [Nome completo]  
-**Status do projeto:** [Protótipo / MVP / Em desenvolvimento / Concluído]
+**Instituição:** Centro Universitário de Brasilia  
+**Curso:** Análise e Desenvolvimento  
+**Disciplina:** Desenvolvimento Web  
+**Turma / Semestre:** 2025.4  
+**Professor(a):** Felippe Pires Ferreira  
+**Status do projeto:** [Protótipo / MVP / Em desenvolvimento / Concluído]  
 
 ---
 
@@ -37,37 +37,52 @@
 
 ## 1. Descrição do projeto
 
-*Apresente o contexto, o problema e a solução proposta. Use linguagem objetiva (dois a quatro parágrafos).*
+Em diversas atividades acadêmicas, corporativas e recreativas, como dinâmicas de grupo, sorteios em sala de aula e tomadas de decisão casuais, há uma demanda constante por ferramentas visuais e imparciais de sorteio. No entanto, as soluções de roleta disponíveis na web frequentemente sofrem com a falta de persistência dos dados (perdendo as configurações ao fechar a página), a exigência burocrática de cadastros com e-mail ou opções bastante limitadas de customização visual e probabilística.
 
-[Descreva o que o sistema faz, para quem ele se destina e qual problema ele resolve.]
+Para resolver essas limitações, este projeto consiste em uma aplicação web de **Roletas Personalizadas** desenvolvida com Python e Django. A plataforma oferece uma experiência leve e desburocratizada, permitindo que o usuário crie uma conta simplificada (utilizando apenas nome de usuário e senha) para construir e manter uma biblioteca de roletas privadas e salvas persistentemente em seu perfil. O sistema permite a customização livre de fatias através de seletores de cores (*color picker*) e a definição opcional de pesos de probabilidade para cada item.
+
+Destinada a professores, estudantes, facilitadores de jogos e público em geral, a aplicação conta com uma interface responsiva adaptada para computadores e dispositivos móveis, além de simulação visual de giro com efeitos sonoros e animações de comemoração. Desenvolvido como projeto acadêmico, o software consolida conceitos fundamentais de desenvolvimento web moderna, integrando arquitetura Django, API REST via Django REST Framework e persistência em banco de dados relacional.
 
 ### Objetivos
 
-*Liste os objetivos gerais e específicos do projeto.*
-
-- **Objetivo geral:** [Ex.: desenvolver uma aplicação web para gerenciar reservas de laboratórios.]
+- **Objetivo geral:** Desenvolver e publicar uma aplicação web responsiva baseada em Django e Jango REST Framework para criação, gestão, personlização e execução de roletas exclusivas salvas persistentemente no perfil do usuário.
 - **Objetivos específicos:**
-  - [Ex.: permitir cadastro e autenticação de usuários.]
-  - [Ex.: registrar e consultar reservas por data e laboratório.]
-  - [Ex.: gerar relatórios de ocupação.]
+  - Implementar autenticação baseada unicamente em nome de usuário e senha
+  - Oferecer seletor livre de cores para cada item e/ou fatia da roleta
+  - Permitir a difinição opcional de pesos/probalidades para cada item da roleta, com padrão de pesos iguais/probalididade uniforme
+  - Desenvolver uma interface interativa com animação de giro, efeitos sonoros e comemoração visual com confetes
+  - Garantir privacidade total: roletas são estritamente exclusivas do perfil do usuário criador
+  - Disponibilizar dashboard para gerenciamento completo das roletas ativas
 
 ### Público-alvo
 
-- [Ex.: estudantes da instituição]
-- [Ex.: professores responsáveis pelos laboratórios]
-- [Ex.: equipe administrativa]
+- Pessoas que querem fazer decisões de atividades por divertimento
+- Professores que querem fazer alguma atividade mais interativa
 
 ---
 
 ## 2. Funcionalidades
 
 *Liste as funções implementadas (ou previstas) no sistema. Marque o status de cada uma.*
-
+<!-- Status: Implementada / Em andamento / Planejada -->
 | Funcionalidade | Descrição | Status |
 | --- | --- | --- |
-| [Ex.: Autenticação] | [Ex.: login, logout e recuperação de senha] | [Implementada / Em andamento / Planejada] |
-| [Ex.: Cadastro de usuários] | [Ex.: criação e edição de perfis] | [Implementada / Em andamento / Planejada] |
-| [Ex.: Relatórios] | [Ex.: exportação em PDF] | [Implementada / Em andamento / Planejada] |
+| Autenticação | login, logout | Planejada |
+| Cadastro de usuários | criação e edição de perfis | Planejada |
+| Validação de Campos Obrigatorios | Validação de campos obrigatorios evita que o usuário seja registrado sem nome ou senha, podendo causar um problema no banco de dados e/ou outras funcionalidades | Planejada |
+| Alerta de duplicidade | Exibição de mensagem de erro caso o nome de usuário já exista no banco de dados | Planejada |
+| Atalho de Login | Direcionamento para a tela de Login através da opção "Já possuo uma conta" | Planejada |
+| Autenticação do Login | Validação de credenciais (Usuário e Senha) e inicialização de sessão privada | Planejada |
+| Tratamento de credenciais invalidas | Exibição de mensagem de erro para usuário/senha incorretos com permissão para nova tentativa | Planejada |
+| Listagem Roletas | Exibição da lista de roletas pertencentes ao usuário autenticado | Planejada |
+| Criação de nova roleta | Interface para inserção de novas roletas a partir da lista | Planejada |
+| Personalização visual | Seleção de tema/esquema de cores para a roleta | Planejada |
+| Inclusão de itens na roleta | Adição de conteúdos textuais correspondentes às fatias da roleta | Planejada |
+| Persistência de dados | Salvamento permanente da roleta, temas e itens no banco de dados | Planejada |
+| Acionamento de giro da roleta | Botão "Girar" para iniciar o sorteio | Planejada |
+| Animação gráfica da roleta | Rotação visual da roleta na interface do usuário | Planejada |
+| Sorteio e destaque | Seleção de um dos itens configurados com destaque visual da fatia sorteada | Planejada |
+| Exibição do resultado | Apresentação do item sorteado na tela após a conclusão da animação | Planejada |
 
 ### Requisitos não funcionais
 
@@ -83,7 +98,7 @@
 ## 3. Demonstração
 
 *Inclua capturas de tela, GIF ou link para vídeo. Coloque as imagens em `images/`.*
-
+<!-- --- AINDA NÃO FOI ALTERADO --- -->
 ![Tela principal](images/[screenshot-principal].png)
 
 | Tela | Descrição |
@@ -101,11 +116,11 @@
 
 | Camada | Tecnologia | Versão |
 | --- | --- | --- |
-| Linguagem | [Ex.: Python, Java, TypeScript] | [Ex.: 3.12] |
-| Frontend | [Ex.: HTML, CSS, React] | [Ex.: 18] |
+| Linguagem | Python | 3.13+ |
+| Frontend | HTML,CSS | [Ex.: 18] |
 | Backend | [Ex.: Flask, Spring Boot, Node.js] | [Ex.: 3.x] |
-| Banco de dados | [Ex.: PostgreSQL, SQLite, MongoDB] | [Ex.: 16] |
-| Testes | [Ex.: pytest, JUnit, Jest] | [Ex.: 8] |
+| Banco de dados | PostgreSQL | [Ex.: 16] |
+| Testes | pytest, Jest, lint | [Ex.: 8] |
 | Infraestrutura | [Ex.: Docker, GitHub Actions] | — |
 | Outras ferramentas | [Ex.: Git, Figma, Postman] | — |
 
@@ -185,12 +200,11 @@ Documentação completa da API: [link para Swagger, Postman ou `docs/api.md`]
 
 | Nome | Matrícula | Função no projeto |
 | --- | --- | --- |
-| [Nome completo] | [000000] | [Ex.: coordenação / backend / frontend / testes / documentação] |
-| [Nome completo] | [000000] | [Ex.: backend] |
-| [Nome completo] | [000000] | [Ex.: frontend] |
-| [Nome completo] | [000000] | [Ex.: testes e documentação] |
+| João Pedro de Melo Naves | 22509476 | separar funções |
+| Rodrigo Viera | 000000 | separar funções |
+| Maurício | 000000 | separar funções |
 
-**Professor(a) responsável:** [Nome completo]
+**Professor(a) responsável:** Felippe Pires Ferreira
 
 ---
 
@@ -281,10 +295,10 @@ Este repositório segue a política de uso de IA da disciplina (semáforo pedag�
 
 *Preencha de forma honesta. Se não houve uso de IA, declare explicitamente.*
 
-- **Houve uso de IA neste projeto?** [Sim / Não]
-- **Ferramentas utilizadas:** [Ex.: ChatGPT, GitHub Copilot, Gemini — ou “nenhuma”]
-- **Finalidade:** [Ex.: revisão de texto, geração de esboço de testes, esclarecimento de dúvidas de sintaxe]
-- **O que NÃO foi delegado à IA:** [Ex.: definição do problema, modelagem, implementação das regras de negócio, testes finais]
+- **Houve uso de IA neste projeto?** Sim
+- **Ferramentas utilizadas:** GitHub, Visual Studio Code, Gemini
+- **Finalidade:** Revisão textual, pesquisa de como fazer estruturas especificas fora do contexto da atividade
+- **O que NÃO foi delegado à IA:** 
 
 ---
 
@@ -323,10 +337,16 @@ Use mensagens curtas e no imperativo, por exemplo:
 
 *Registre entregas relevantes (sprints, checkpoints ou versões avaliadas).*
 
+<!-- 
+Exemplo:
+| `0.0.1` | [AAAA-MM-DD] | [Ex.: estrutura inicial do repositório] |
+
+Empilhar os mais novos em cima
+-->
+
 | Versão | Data | Descrição |
 | --- | --- | --- |
-| `0.1.0` | [AAAA-MM-DD] | [Ex.: primeira versão executável / MVP] |
-| `0.0.1` | [AAAA-MM-DD] | [Ex.: estrutura inicial do repositório] |
+| `0.1.0` | [2026-10-05] | Estrutura Inicial do Projeto |
 
 ---
 
