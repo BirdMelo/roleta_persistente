@@ -3,7 +3,7 @@
 > Substitua os trechos entre colchetes `[ ]` pelas informações reais do trabalho. Remova esta nota e as demais orientações em *itálico* antes da entrega.
 
 [![Status](https://img.shields.io/badge/status-em_desenvolvimento-yellow)]()
-[![Versão](https://img.shields.io/badge/versão-0.0.1-blue)]()
+[![Versão](https://img.shields.io/badge/versão-0.1.1-blue)]()
 [![Licença](https://img.shields.io/badge/licença-acadêmica-lightgrey)]()
 
 **Instituição:** Centro Universitário de Brasilia  
@@ -161,36 +161,41 @@ Documentação completa da API: [link para Swagger, Postman ou `docs/api.md`]
 
 ```text
 .
-├── README.md                 # Documentação principal do projeto
-├── .env.example              # Modelo de variáveis de ambiente (sem segredos)
-├── docs/                     # Modelagem e demais artefatos técnicos (PDF)
-│   ├── README.pdf            # Índice da pasta docs/
-│   └── modelagem/
-│       ├── casos-de-uso/
-│       │   └── especificacoes-casos-de-uso.pdf
-│       ├── classes/
-│       │   └── diagrama-de-classes.pdf
-│       └── banco-de-dados/
-│           ├── diagrama-er.pdf
-│           └── modelo-logico.pdf
-├── images/                   # Figuras da documentação geral (ex.: política de IA)
-├── src/                      # Código-fonte da aplicação
-│   ├── frontend/             # Interface com o usuário (quando houver)
-│   └── backend/              # Regras de negócio, API e acesso a dados (quando houver)
-├── tests/                    # Testes automatizados
-└── scripts/                  # Scripts auxiliares de setup, build ou deploy
+├── .github/                  # Configurações do GitHub (automações)
+│   └── workflows/            # Pipelines de CI/CD
+├── docs/                     # Documentação e artefatos técnicos do projeto
+│   └── modelagem/            # Diagramas e especificações de modelagem
+├── images/                   # Imagens e recursos visuais da documentação
+├── roletas_customizadas/     # Módulo principal / raiz da aplicação Django
+│   ├── roletas_customizadas/ # Módulo de configurações centrais do Django
+│   │   ├── management/       # Comandos personalizados do Django
+│   │   ├── __init__.py       # Inicialização do pacote Python
+│   │   ├── asgi.py           # Ponto de entrada para servidores assíncronos (ASGI)
+│   │   ├── settings.py       # Definições globais e configurações do projeto
+│   │   ├── urls.py           # Roteamento central de URLs e endpoints
+│   │   └── wsgi.py           # Ponto de entrada para servidores WSGI
+│   ├── tests/                # Testes automatizados da aplicação
+│   │   └── __init__.py       # Inicialização do pacote de testes
+│   └── manage.py             # Utilitário de linha de comandos do Django
+├── .gitignore                # Ficheiros e diretórios ignorados pelo Git
+├── pyproject.toml            # Configuração do projeto e de ferramentas Python
+├── README.md                 # Documentação principal do repositório
+└── requirements.txt          # Lista de dependências e pacotes Python
 ```
 
 | Diretório / arquivo | Função |
 | --- | --- |
-| `README.md` | Apresentação do projeto, objetivos, tecnologias e instruções de uso |
-| `.env.example` | Lista das variáveis necessárias, sem credenciais reais |
-| `docs/` | Artefatos de análise e modelagem em PDF |
-| `docs/modelagem/` | Casos de uso, classes e modelo de dados (diagramas embutidos nos PDFs) |
-| `images/` | Figuras da documentação geral do repositório (não usar para diagramas de modelagem) |
-| `src/` | Código-fonte organizado por camada ou módulo |
-| `tests/` | Casos de teste e evidências de verificação |
-| `scripts/` | Automação de ambiente e execução |
+| `.github/` | Configurações do GitHub Actions e rotinas de automação/CI/CD |
+| `docs/modelagem/` | Artefatos técnicos de análise e modelagem (diagramas e especificações) |
+| `images/` | Figuras, capturas de tela e recursos visuais da documentação |
+| `roletas_customizadas/` | Diretório raiz do código-fonte do projeto Django |
+| `roletas_customizadas/roletas_customizadas/` | Módulo com as configurações globais da aplicação (`settings.py`, `urls.py`, `wsgi.py`, `asgi.py`) |
+| `roletas_customizadas/tests/` | Casos de testes automatizados do sistema |
+| `roletas_customizadas/manage.py` | Utilitário de linha de comando do Django para execução e migrações |
+| `.gitignore` | Mapeamento de arquivos e diretórios ignorados pelo controle de versão Git |
+| `pyproject.toml` | Configuração de ferramentas de desenvolvimento, linters e ambiente Python |
+| `README.md` | Documentação principal com visão geral, arquitetura e instruções de uso |
+| `requirements.txt` | Relação de dependências e bibliotecas Python necessárias para o projeto |
 
 ---
 
@@ -227,7 +232,7 @@ git clone [URL_DO_REPOSITORIO]
 cd [NOME_DA_PASTA]
 
 # 2. Instalar dependências
-[comando de instalação]
+pip install -r requirements.txt
 
 # 3. Configurar variáveis de ambiente
 cp .env.example .env
@@ -346,6 +351,7 @@ Empilhar os mais novos em cima
 
 | Versão | Data | Descrição |
 | --- | --- | --- |
+| `0.1.1` | [2026-10-08] | Atualização da documentação |
 | `0.1.0` | [2026-10-05] | Estrutura Inicial do Projeto |
 
 ---
