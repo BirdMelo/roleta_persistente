@@ -371,7 +371,19 @@ Empilhar os mais novos em cima
 
 ---
 
-## 15. Licença, referências e contato
+### 15. Integrações Externas
+
+#### API de Data e Hora (World Time API)
+- **Finalidade:** Sincronização de data, hora e fusos horários oficiais para registro de logs e auditoria.
+- **Endpoint principal:** `GET /api/timezone/America/Sao_Paulo`
+- **Autenticação:** Não necessária.
+- **Tratamento de Falhas:** Em caso de indisponibilidade ou timeout da API, o sistema utiliza o horário local do servidor como *fallback*, garantindo que a aplicação continue funcionando normalmente.
+- **Documentação:** [World Time API Docs](https://worldtimeapi.org)
+
+
+---
+
+## 16. Licença, referências e contato
 
 **Licença:** [Ex.: uso exclusivamente acadêmico / MIT / outro]
 
