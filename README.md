@@ -3,7 +3,7 @@
 > Substitua os trechos entre colchetes `[ ]` pelas informações reais do trabalho. Remova esta nota e as demais orientações em *itálico* antes da entrega.
 
 [![Status](https://img.shields.io/badge/status-em_desenvolvimento-yellow)]()
-[![Versão](https://img.shields.io/badge/versão-0.1.1-blue)]()
+[![Versão](https://img.shields.io/badge/versão-0.1.2-blue)]()
 [![Licença](https://img.shields.io/badge/licença-acadêmica-lightgrey)]()
 
 **Instituição:** Centro Universitário de Brasilia  
@@ -88,10 +88,13 @@ Destinada a professores, estudantes, facilitadores de jogos e público em geral,
 
 *Informe restrições de qualidade, quando existirem.*
 
-- **Desempenho:** [Ex.: respostas da API em menos de 2 segundos]
-- **Segurança:** [Ex.: senhas armazenadas com hash; HTTPS em produção]
-- **Usabilidade:** [Ex.: interface responsiva para desktop e celular]
-- **Disponibilidade:** [Ex.: uso em ambiente local / laboratório da disciplina]
+- **Desempenho:** respostas da API em menos de 2 segundos nas operações comuns (listar roletas, salvar e sortear); a animação do giro é executada no navegador, sem depender de bibliotecas externas pesadas.
+- **Segurança:** senhas armazenadas com hash (PBKDF2/Argon2); autenticação por sessão do Django com proteção CSRF; HTTPS em produção; validação dos dados de entrada no servidor; isolamento total dos dados por usuário (cada um acessa apenas suas roletas); credenciais e chaves em variáveis de ambiente (`.env`), fora do repositório.
+- **Usabilidade:** interface responsiva para desktop e celular, com modo claro e escuro; cadastro simplificado (apenas nome de usuário e senha, sem e-mail); mensagens de erro claras para validações e falhas de comunicação.
+- **Disponibilidade:** aplicação publicada em domínio ou subdomínio público e mantida online durante o período de avaliação; banco PostgreSQL gerenciado no Supabase, com persistência na nuvem.
+- **Integridade dos dados:** gravações compostas (roleta e itens) em transação atômica; chaves estrangeiras com exclusão em cascata e restrições de unicidade no banco.
+- **Compatibilidade:** navegadores modernos com suporte a JavaScript, HTML5 Canvas e Web Audio API; a reprodução de áudio inicia somente após a primeira interação do usuário, por causa do bloqueio de autoplay em navegadores móveis.
+- **Manutenibilidade:** dependências registradas em `requirements.txt` e `pyproject.toml`; código organizado em Models, Views/ViewSets, Serializers, URLs e Migrations.
 
 ---
 
@@ -138,8 +141,17 @@ Destinada a professores, estudantes, facilitadores de jogos e público em geral,
 
 **Decisões relevantes:**
 
-- [Ex.: uso de API REST para separar cliente e servidor.]
-- [Ex.: persistência relacional porque os dados possuem relacionamentos bem definidos.]
+- **API REST com Django REST Framework** para separar cliente e servidor: o frontend (HTML5, CSS3 e JavaScript puro) consome a API via JSON, e as regras de negócio ficam concentradas no backend.
+- **Persistência relacional (PostgreSQL no Supabase)**, porque os dados têm relacionamentos bem definidos (Usuário 1:N Roleta 1:N ItemRoleta) e exigem integridade referencial, com exclusão em cascata e restrições de unicidade.
+- **Sorteio executado no backend**: o servidor define o item vencedor e o frontend apenas anima, o que preserva a integridade do resultado e impede manipulação pelo navegador.
+- **Autenticação por sessão do Django com proteção CSRF**, usando apenas nome de usuário e senha (sem e-mail), com senhas armazenadas com hash.
+- **Isolamento de dados por usuário**: a API só retorna e altera roletas do usuário autenticado, garantindo a privacidade das roletas.
+- **Mínimo de 2 itens por roleta**, validado na API dentro de uma transação atômica para nunca gravar uma roleta incompleta.
+- **Remoção da fatia sorteada apenas na sessão de giro**: o item sai da lista ativa, mas não é apagado do banco, e o giro é bloqueado quando restam menos de 2 itens (com opção de reiniciar).
+- **Peso padrão 1 para os itens**: sem pesos informados, todas as fatias têm a mesma probabilidade; pesos informados devem ser maiores que zero.
+- **Configurações de comportamento por roleta** (som do giro, efeito de vitória, texto do botão, remoção da fatia sorteada) e **modo escuro salvo no perfil** do usuário.
+- **Variáveis de ambiente (`.env`)** para `SECRET_KEY`, `DEBUG` e credenciais do banco, fora do repositório (`.gitignore`).
+- **Escopo enxuto**: sem histórico de giros, compartilhamento público, recuperação de senha por e-mail ou edição/exclusão de conta.
 
 ### Endpoints principais (quando houver API)
 
@@ -164,7 +176,13 @@ Documentação completa da API: [link para Swagger, Postman ou `docs/api.md`]
 ├── .github/                  # Configurações do GitHub (automações)
 │   └── workflows/            # Pipelines de CI/CD
 ├── docs/                     # Documentação e artefatos técnicos do projeto
-│   └── modelagem/            # Diagramas e especificações de modelagem
+│   ├── manual-visual/        # Manual visual e prototipos da sistema
+│   ├── modelagem/            # Diagramas e especificações de modelagem
+│   │   ├── banco-de-dados/   # Modelos conceitual e lógico do Banco de dados
+│   │   ├── casos-de-uso/     # Documento de Especificação de Caso de Uso
+│   │   ├── classes/          # Diagrama de classes
+│   │   └── Arquitetura.pdf   # Definições de arquitetura
+│   └── DV.pdf                # Documento de Visão do Projeto
 ├── images/                   # Imagens e recursos visuais da documentação
 ├── roletas_customizadas/     # Módulo principal / raiz da aplicação Django
 │   ├── roletas_customizadas/ # Módulo de configurações centrais do Django
@@ -342,15 +360,9 @@ Use mensagens curtas e no imperativo, por exemplo:
 
 *Registre entregas relevantes (sprints, checkpoints ou versões avaliadas).*
 
-<!-- 
-Exemplo:
-| `0.0.1` | [AAAA-MM-DD] | [Ex.: estrutura inicial do repositório] |
-
-Empilhar os mais novos em cima
--->
-
 | Versão | Data | Descrição |
 | --- | --- | --- |
+| `0.1.2` | [2026-10-10] | Atualização da documentação |
 | `0.1.1` | [2026-10-08] | Atualização da documentação |
 | `0.1.0` | [2026-10-05] | Estrutura Inicial do Projeto |
 
