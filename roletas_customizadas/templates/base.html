@@ -1,0 +1,29 @@
+{% load static %}
+{% block base %}
+    <!DOCTYPE html>
+    <html lang="pt-br" data-theme="light">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Giro!</title>
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+        <script src="{% static 'scrips/toggle_dark_mode.js' %}" defer></script>
+    </head>
+    <body>
+        <header>
+            <img src="#" alt="logo do Giro!">
+            <button class="btn-dark-mode" id="btn-dark-mode">
+                <img 
+                    src=" {% static 'images/dark_mode.svg' %} "
+                    data-dark="{% static 'images/dark_mode.svg' %}"
+                    data-light="{% static 'images/light_mode.svg' %}"
+                    alt="dark mode"
+                >
+            </button>
+        </header>
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+    </body>
+    </html>
+{% endblock %}

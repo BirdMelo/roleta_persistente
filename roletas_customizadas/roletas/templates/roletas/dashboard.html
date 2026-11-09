@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{%block content%}
+    <h1>Minhas Roletas</h1>
+    <button class="btn-main" onclick="window.location.href='#'">
+        + Nova roleta
+    </button>
+    {% for roleta in roletas %}
+        <div>
+            <p>{{roleta.nome}}</p>
+            <div>
+                <button>
+                    <img src="" alt="editar roleta" title="editar">
+                </button>
+                <button>
+                    <img src="" alt="excluir roleta" title="excluir">
+                </button>
+            </div>
+        </div>
+    {% endfor %}
+{%endblock%}
