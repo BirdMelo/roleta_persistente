@@ -1,0 +1,11 @@
+<!-- página de verificação de credenciais do usuário (login) -->
+
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Entrar</h1>
+    <form action="" method="post">
+        <!-- fieldset -->
+        <button type="submit" id="btn-login" class="btn-main">Entrar</button>
+        <a href="{% url 'accounts:cadastro' %}">Criar conta</a>
+    </form>
+{% endblock %}

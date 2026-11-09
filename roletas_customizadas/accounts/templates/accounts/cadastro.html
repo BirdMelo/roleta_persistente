@@ -1,0 +1,12 @@
+<!-- cadastro de usuário no sistema -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Criar Conta</h1>
+    <form action="" method="post">
+        <!-- fieldset -->
+        <button type="submit" id="btn-register" class="btn-main">Cadastrar</button>
+        <a href="{% url 'accounts:login' %}">Já tenho uma conta</a>
+    </form>
+{% endblock %}
