@@ -5,7 +5,19 @@
 {% block content %}
     <h1>Criar Conta</h1>
     <form action="" method="post">
-        <!-- fieldset -->
+        {% csrf_token %}
+        <fieldset>
+            <div class="fieldset-block">
+                {{ form.nome.label_tag }}
+                {{ form.nome }}
+                {{ form.nome.errors }}
+            </div>
+            <div class="fieldset-block">
+                {{ form.senha.label_tag }}
+                {{ form.senha }}
+                {{ form.senha.errors }}
+            </div>
+        </fieldset>
         <button type="submit" id="btn-register" class="btn-main">Cadastrar</button>
         <a href="{% url 'accounts:login' %}">Já tenho uma conta</a>
     </form>
