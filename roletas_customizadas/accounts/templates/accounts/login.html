@@ -1,10 +1,32 @@
 <!-- página de verificação de credenciais do usuário (login) -->
 
 {% extends 'base.html' %}
+{% load static %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'accounts/accounts.css' %}">
+{% endblock %}
+
 {% block content %}
     <h1>Entrar</h1>
     <form action="" method="post">
-        <!-- fieldset -->
+        {% csrf_token %}
+        <fieldset>
+            {{ form.non_field_errors }}
+            <div class="fieldset-block">
+                {{ form.nome.label_tag }}
+                {{ form.nome }}
+                {{ form.nome.errors }}
+            </div>
+            <div class="fieldset-block">
+                {{ form.senha.label_tag }}
+                {{ form.senha }}
+                {{ form.senha.errors }}
+            </div>
+        </fieldset>
+        {% if sucesso %}
+            <p>{{ sucesso }}</p>
+        {% endif %}
         <button type="submit" id="btn-login" class="btn-main">Entrar</button>
         <a href="{% url 'accounts:cadastro' %}">Criar conta</a>
     </form>

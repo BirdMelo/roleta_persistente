@@ -132,3 +132,45 @@ button {
     outline: 2px solid var(--select-color);
     cursor: pointer;
 }
+
+/* FORMS */
+
+.inputs {
+    background-color: var(--container-color);
+    padding: 10px 16px;
+    border-radius: 12px;
+    border: var(--select-color) 2px solid;
+    color: var(--text-1-border-color);
+}
+input:focus-visible {
+    outline: none;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+fieldset {
+    border: none;
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+}
+.fieldset-block {
+    display: flex;
+    flex-direction: column;
+}
+a {
+    text-decoration: none;
+    color: var(--highlight-color)
+}
+.errorlist {
+    list-style: none;
+    padding: 4px 16px;
+    color: var(--warning-color);
+    
+}
+.errorlist li {
+    text-align: center;
+}

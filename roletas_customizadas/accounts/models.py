@@ -9,3 +9,6 @@ class Usuario(models.Model):
     class Meta:
         db_table = 'Usuario'
         ordering = ['nome']
+
+    def __str__(self):
+        return f'Usuário: {self.nome}'
