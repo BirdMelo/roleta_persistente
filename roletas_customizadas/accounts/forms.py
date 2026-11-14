@@ -1,48 +1,51 @@
 from django import forms
+
 from .models import Usuario
 
 class UsuarioForm(forms.ModelForm):
-    nome = forms.CharField(
-        label='*Nome',
-        max_length=100,
-        required=True,
-        widget=forms.TextInput(attrs={
-            'placeholder': 'Digite seu nome',
+    password = forms.CharField(
+        label='Senha',
+        widget=forms.PasswordInput(attrs={
             'class': 'inputs',
-            'id': 'user_name'
+            'id': 'register_password'
         })
     )
-    senha = forms.CharField(
-        label='*Senha',
-        max_length=120,
-        required=True,
-        widget= forms.PasswordInput(attrs={
-            'placeholder': 'Digite sua senha',
-            'class': 'inputs',
-            'id': 'user_password'
-        })
-    )
-    
+
     class Meta:
         model = Usuario
-        fields = ['nome', 'senha']
+        fields = ['username', 'password']
+        labels = {
+            'username': 'Nome',
+        }
+        widgets = {
+            'username': forms.TextInput(attrs={
+                'class': 'inputs',
+                'id': 'register_username'
+            }),
+        }
+
+    def save(self, commit=True):
+        usuario = super().save(commit=False)
+        usuario.set_password(self.cleaned_data['password'])
+        if commit:
+            usuario.save()
+        return usuario
 
 
 class LoginForm(forms.Form):
-    nome = forms.CharField(
-        label='*Nome',
-        max_length=100,
+    username = forms.CharField(
+        label='Usuário',
+        max_length=150,
         required=True,
         widget=forms.TextInput(attrs={
-            'placeholder': 'Digite seu nome',
+            'placeholder': 'Digite seu usuário',
             'class': 'inputs',
-            'id': 'login_name'
+            'id': 'login_username'
         })
     )
-    senha = forms.CharField(
-        label='*Senha',
-        max_length=120,
-        required=True,
+    password = forms.CharField(
+        label='Senha',
+        required=True, 
         widget=forms.PasswordInput(attrs={
             'placeholder': 'Digite sua senha',
             'class': 'inputs',
