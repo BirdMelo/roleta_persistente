@@ -1,0 +1,23 @@
+<!-- página de perfil do usuário para fazer alterações e exclusão de conta -->
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'accounts/accounts.css' %}">
+{% endblock %}
+
+{% block content %}
+    <h1>{{user.username}}</h1>
+    <div class="perfil_btn_container">
+        <form action="{% url 'accounts:alterar' %}" method="get">
+            <button type="submit" class="btn-alternative">
+                Alterar
+            </button>
+        </form>
+        <form action="{% url 'accounts:excluir' %}" method="post">
+            {% csrf_token %}
+            <button class="btn-warning" type="submit">Excluir</button>
+        </form>
+    </div>
+{% endblock %}

@@ -3,7 +3,7 @@
 > Substitua os trechos entre colchetes `[ ]` pelas informações reais do trabalho. Remova esta nota e as demais orientações em *itálico* antes da entrega.
 
 [![Status](https://img.shields.io/badge/status-em_desenvolvimento-yellow)]()
-[![Versão](https://img.shields.io/badge/versão-0.1.2-blue)]()
+[![Versão](https://img.shields.io/badge/versão-0.2.0-blue)]()
 [![Licença](https://img.shields.io/badge/licença-acadêmica-lightgrey)]()
 
 **Instituição:** Centro Universitário de Brasilia  
@@ -362,6 +362,7 @@ Use mensagens curtas e no imperativo, por exemplo:
 
 | Versão | Data | Descrição |
 | --- | --- | --- |
+| `0.2.0` | [2026-11-14] | app/accounts com as views prontas para a conexão com app/roletas |
 | `0.1.2` | [2026-10-10] | Atualização da documentação |
 | `0.1.1` | [2026-10-08] | Atualização da documentação |
 | `0.1.0` | [2026-10-05] | Estrutura Inicial do Projeto |
