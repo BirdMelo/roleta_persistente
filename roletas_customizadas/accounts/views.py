@@ -31,7 +31,7 @@ def login_view(request):
 
             if usuario is not None:
                 auth_login(request, usuario)
-                return redirect('accounts:perfil') #substituir accounst:login para roletas:dashboard
+                return redirect('roletas:dashboard') #substituir accounst:login para roletas:dashboard
 
             form.add_error(None, 'Usuário ou senha inválidos.')
     else:

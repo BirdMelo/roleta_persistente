@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'roletas/roletas.css' %}">
+    <script src="{% static 'roletas/scripts/itensCadastro.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+    <h1>Nova Roleta</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        <!-- <h2>Roleta</h2> -->
+        <fieldset>
+            <legend>Roleta</legend>
+            <div class="fieldset-block">
+                {{roleta_form.nome.label_tag}}
+                {{roleta_form.nome}}
+                {{roleta_form.nome.errors}}
+            </div>
+            <div class="fieldset-block">
+                {{roleta_form.descricao.label_tag}}
+                {{roleta_form.descricao}}
+                {{roleta_form.descricao.errors}}
+            </div>
+            <div class="fieldset-block">
+                {{roleta_form.texto_botao_giro.label_tag}}
+                {{roleta_form.texto_botao_giro}}
+                {{roleta_form.texto_botao_giro.errors}}
+            </div>
+            <div class="fieldset-block fieldset-block-inline">
+                {{roleta_form.cor_bg.label_tag}}
+                {{roleta_form.cor_bg}}
+                {{roleta_form.cor_bg.errors}}
+            </div>
+            <div class="fieldset-block fieldset-block-inline">
+                {{roleta_form.remover_fatia_sorteada.label_tag}}
+                {{roleta_form.remover_fatia_sorteada}}
+                {{roleta_form.remover_fatia_sorteada.errors}}
+            </div>
+        </fieldset>
+        <!-- <h2>Itens</h2> -->
+        <fieldset class="items-fieldset">
+            <legend>Itens</legend>
+            {{ item_formset.management_form }}
+
+            {% for item_form in item_formset %}
+                <details class="item-form" {% if forloop.first %}open{% endif %}>
+                    <summary>Item {{ forloop.counter }}</summary>
+
+                    <div class="fieldset-container">
+                        <div class="fieldset-block">
+                            {{ item_form.texto.label_tag }}
+                            {{ item_form.texto }}
+                            {{ item_form.texto.errors }}
+                        </div>
+
+                        <div class="fieldset-block fieldset-block-inline">
+                            {{ item_form.cor_bg.label_tag }}
+                            {{ item_form.cor_bg }}
+                            {{ item_form.cor_bg.errors }}
+                        </div>
+
+                        <div class="fieldset-block fieldset-block-inline">
+                            {{ item_form.peso.label_tag }}
+                            {{ item_form.peso }}
+                            {{ item_form.peso.errors }}
+                        </div>
+                    </div>
+                </details>
+            {% endfor %}
+
+            <template id="item-form-template">
+                <details class="item-form">
+                    <summary>Item __numero__</summary>
+
+                    <div class="fieldset-container">
+                        <div class="fieldset-block">
+                            {{ item_formset.empty_form.texto.label_tag }}
+                            {{ item_formset.empty_form.texto }}
+                        </div>
+
+                        <div class="fieldset-block fieldset-block-inline">
+                            {{ item_formset.empty_form.cor_bg.label_tag }}
+                            {{ item_formset.empty_form.cor_bg }}
+                        </div>
+
+                        <div class="fieldset-block fieldset-block-inline">
+                            {{ item_formset.empty_form.peso.label_tag }}
+                            {{ item_formset.empty_form.peso }}
+                        </div>
+                    </div>
+                </details>
+            </template>
+        </fieldset>
+        <div class="btn-container-itens">
+            <button type="button" class="btn-warning btn-left" onclick="removerItem()">
+                -1
+            </button>
+            <button type="button" class="btn-alternative btn-right" onclick="adicionarItem()">
+                +1
+            </button>
+        </div>
+        <hr>
+        <button class="btn-main" type="submit">Criar Roleta</button>
+        <a href="{% url 'roletas:dashboard' %}">Cancelar</a>
+    </form>
+{% endblock %}

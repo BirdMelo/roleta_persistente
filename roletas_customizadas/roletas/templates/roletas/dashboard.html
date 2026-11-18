@@ -1,20 +1,33 @@
 {% extends 'base.html' %}
+
+{% load static %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'roletas/roletas.css' %}">
+{% endblock %}
+
 {%block content%}
     <h1>Minhas Roletas</h1>
-    <button class="btn-main" onclick="window.location.href='#'">
+    <button class="btn-main" onclick="window.location.href='{% url 'roletas:cadastro' %}'">
         + Nova roleta
     </button>
-    {% for roleta in roletas %}
-        <div>
-            <p>{{roleta.nome}}</p>
-            <div>
-                <button>
-                    <img src="" alt="editar roleta" title="editar">
-                </button>
-                <button>
-                    <img src="" alt="excluir roleta" title="excluir">
-                </button>
-            </div>
-        </div>
-    {% endfor %}
+    <section class="section_roletas">
+        {% if not roletas %}
+            <p class="empty_list">ADICIONE UMA NOVA ROLETA</p>
+        {% else %}
+            {% for roleta in roletas %}
+                <a class="a-container-roletas" href="">
+                    <p>{{roleta.nome}}</p>
+                    <div>
+                        <button class="btn-warning roleta-container-buttons">
+                            <span class="theme-icon-delete" aria-hidden="true"></span>
+                        </button>
+                        <button class="btn-alternative roleta-container-buttons">
+                            <span class="theme-icon-edit" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </a>
+            {% endfor %}
+        {% endif %}
+    </section>
 {%endblock%}

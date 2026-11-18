@@ -1,0 +1,217 @@
+/* TEXTO QUANDO SEM ROLETA */
+.empty_list {
+    font-family: var(--title-buttons-font);
+    font-weight: 700;
+    font-size: 20px;
+    margin-top: 90px;
+    color: color-mix(
+        in srgb, var(--text-1-border-color) 15%,
+        transparent
+    );
+}
+
+/* DETAILS */
+.item-form {
+    margin-bottom: 1rem;
+}
+
+.item-form summary {
+    cursor: pointer;
+    font-weight: bold;
+    list-style: none;
+}
+.item-form[open] summary {
+    margin-bottom: 14px;
+}
+
+.item-form {
+    border: solid var(--select-color) 2px;
+    padding: 8px 16px;
+    border-radius: 16px;
+}
+.item-form[open] {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    gap: 8px;
+}
+
+/* FIELDSET */
+.items-fieldset {
+    width: 100%;
+}
+.fieldset-block-inline {
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+}
+.fieldset-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+        "text text"
+        "color weight";
+    gap: 8px;
+}
+
+.fieldset-container > .fieldset-block:nth-child(1) {
+    grid-area: text;
+}
+
+.fieldset-container > .fieldset-block:nth-child(2) {
+    grid-area: color;
+}
+
+.fieldset-container > .fieldset-block:nth-child(3) {
+    grid-area: weight;
+}
+legend {
+    border-bottom: 1px solid var(--text-2-color);
+    width: 100%;
+    text-align: start;
+    margin-bottom: 16px;
+    font-family: var(--title-buttons-font);
+    font-weight: 700;
+    font-size: 24px;
+}
+/* SELECT COLOR */
+.select_color {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border: 2px solid var(--select-color);
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    background-color: var(--background-color);
+}
+.select_color::-webkit-color-swatch-wrapper {
+    padding: 2px;
+}
+
+.select_color::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
+}
+
+/* BOTÕES PARA ADICIONAR E EXCLUIR ITEM */
+
+.btn-container-itens {
+    display: flex;
+    gap: 0;
+}
+.btn-right, .btn-left{
+    box-shadow: none;
+    padding: 8px 16px;
+}
+.btn-right {
+    border-radius: 0px 16px 16px 0;
+    border: solid 2px var(--select-color);
+}
+.btn-left {
+    border-radius: 16px 0px 0px 16px;
+    border: solid 2px var(--select-color);
+}
+.roleta-container-buttons {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 50%;
+    box-shadow: none;
+}
+
+/* TOGGLE DE REMOVER FATIA */
+
+.toggle {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 50px;
+    height: 26px;
+    border-radius: 999px;
+    border: 2px solid var(--select-color);
+    background-color: var(--background-color);
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.2s ease;
+}
+
+.toggle::before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: var(--container-color);
+    position: absolute;
+    left: -2px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: left 0.2s ease, transform 0.2s ease;
+    border: 2px solid var(--select-color);
+}
+
+.toggle:checked {
+    background-color: var(--text-2-color);
+}
+
+.toggle:checked::before {
+    left: 23px;
+    transform: translateY(-50%);
+}
+
+/* ICONES */
+
+.theme-icon-edit, .theme-icon-delete {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: var(--btn-text-color);
+}
+
+.theme-icon-edit {
+    mask: url("../images/edit/edit_dark_mode.svg") center / contain no-repeat;
+    -webkit-mask: url("../images/edit/edit_dark_mode.svg") center / contain no-repeat;
+}
+
+.theme-icon-delete {
+    mask: url("../images/delete/delete_dark_mode.svg") center / contain no-repeat;
+    -webkit-mask: url("../images/delete/delete_dark_mode.svg") center / contain no-repeat;
+}
+
+/* SECTION DE ROLETAS */
+
+.section_roletas {
+    display: flex;
+    flex-direction: column;
+    width: 345px;
+    align-items: center;
+    gap: 16px;
+}
+.a-container-roletas {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    padding: 16px;
+    background-color: var(--container-color);
+    border-radius: 16px;
+    border: solid 2px var(--select-color);
+    box-shadow: 0px 0px 10px var(--select-color);
+    width: 100%;
+}
+.a-container-roletas > div {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0px 16px;
+}
+.a-container-roletas > p {
+    color: var(--text-1-border-color);
+    font-family: var(--title-buttons-font);
+    font-weight: 700;
+    font-size: 18px;
+}
