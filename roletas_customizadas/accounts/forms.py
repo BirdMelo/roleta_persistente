@@ -52,4 +52,3 @@ class LoginForm(forms.Form):
             'id': 'login_password'
         })
     )
-        
