@@ -1,9 +1,12 @@
 from django.contrib.auth import authenticate, login as auth_login, logout
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
 from accounts.forms import LoginForm, UsuarioForm
 from .models import Usuario
 from django.contrib import messages
+import json
 
 def register(request):
     if request.method == 'POST':
@@ -71,3 +74,13 @@ def excluir_usuario(request):
         messages.success(request, 'Usuário deletado com sucesso')
         return redirect('accounts:login')
     return render(request, 'accounts/perfil.html', {'user': usuario})
+
+@login_required(login_url='accounts:login')
+@require_POST
+def atualizar_tema(request):
+    dados = json.loads(request.body)
+    usuario = request.user
+    usuario.dark_mode = dados.get('dark_mode', False)
+    usuario.save(update_fields=['dark_mode'])
+
+    return JsonResponse({'dark_mode': usuario.dark_mode})
