@@ -1,4 +1,5 @@
 import re
+import subprocess
 from datetime import datetime
 from pathlib import Path
 from django.core.management.base import BaseCommand
@@ -24,6 +25,14 @@ class Command(BaseCommand):
         toml_way = project_root / "pyproject.toml"
         readme_way = project_root / "README.md"
 
+        if not re.fullmatch(r"\d+\.\d+\.\d+", new_version):
+            self.stderr.write(
+                self.style.ERROR(
+                    "Erro: a versão deve seguir o formato semântico X.Y.Z (ex: 0.2.0)"
+                )
+            )
+            return
+
         if not toml_way.exists():
             self.stderr.write(
                 self.style.ERROR(
@@ -36,6 +45,32 @@ class Command(BaseCommand):
             self.stderr.write(
                 self.style.ERROR(
                     f"Erro: README.md não encontrado em {readme_way}"
+                )
+            )
+            return
+
+        if subprocess.run(
+            ["git", "-C", str(project_root), "rev-parse", "--is-inside-work-tree"],
+            capture_output=True,
+            text=True,
+        ).returncode != 0:
+            self.stderr.write(
+                self.style.ERROR("Erro: o projeto não está em um repositório Git.")
+            )
+            return
+
+        tag_name = f"v{new_version}"
+        existing_tags = subprocess.run(
+            ["git", "-C", str(project_root), "tag", "--list"],
+            capture_output=True,
+            text=True,
+            check=True,
+        ).stdout.splitlines()
+
+        if tag_name in existing_tags or new_version in existing_tags:
+            self.stderr.write(
+                self.style.ERROR(
+                    f"Erro: a tag '{tag_name}' ou '{new_version}' já existe."
                 )
             )
             return
@@ -76,16 +111,128 @@ class Command(BaseCommand):
                 f"{header_and_divider}\n{new_table_line}",
                 1,
             )
-            readme_way.write_text(readme_updated, encoding="utf-8")
-
-            self.stdout.write(
-                self.style.SUCCESS(
-                    f"✓ pyproject.toml e README.md atualizados para a versão {new_version} com sucesso!"
-                )
-            )
         else:
-            self.stdout.write(
-                self.style.WARNING(
-                    "Aviso: Tabela 'Versão | Data | Descrição' não encontrada no README.md."
+            self.stderr.write(
+                self.style.ERROR(
+                    "Erro: tabela 'Versão | Data | Descrição' não encontrada no README.md."
                 )
             )
+            return
+
+        toml_way.write_text(toml_updated, encoding="utf-8")
+        readme_way.write_text(readme_updated, encoding="utf-8")
+
+        try:
+            subprocess.run(
+                [
+                    "git",
+                    "-C",
+                    str(project_root),
+                    "add",
+                    "--",
+                    "pyproject.toml",
+                    "README.md",
+                ],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+            subprocess.run(
+                [
+                    "git",
+                    "-C",
+                    str(project_root),
+                    "commit",
+                    "-m",
+                    f"chore: atualiza versão para {tag_name}",
+                ],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+            subprocess.run(
+                [
+                    "git",
+                    "-C",
+                    str(project_root),
+                    "tag",
+                    "-a",
+                    tag_name,
+                    "-m",
+                    f"Versão {new_version}",
+                ],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+            branch = subprocess.run(
+                [
+                    "git",
+                    "-C",
+                    str(project_root),
+                    "branch",
+                    "--show-current",
+                ],
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout.strip()
+
+            if not branch:
+                raise subprocess.CalledProcessError(
+                    1,
+                    "git branch --show-current",
+                    stderr="Não foi possível identificar a branch atual.",
+                )
+
+            origin = subprocess.run(
+                [
+                    "git",
+                    "-C",
+                    str(project_root),
+                    "remote",
+                    "get-url",
+                    "origin",
+                ],
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout.strip()
+
+            if not origin:
+                raise subprocess.CalledProcessError(
+                    1,
+                    "git remote get-url origin",
+                    stderr="O remoto 'origin' não está configurado.",
+                )
+
+            subprocess.run(
+                [
+                    "git",
+                    "-C",
+                    str(project_root),
+                    "push",
+                    "--atomic",
+                    "origin",
+                    f"HEAD:{branch}",
+                    f"refs/tags/{tag_name}",
+                ],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+        except subprocess.CalledProcessError as error:
+            message = error.stderr.strip() if error.stderr else str(error)
+            self.stderr.write(
+                self.style.ERROR(
+                    f"Erro ao criar commit, tag ou enviar ao GitHub: {message}"
+                )
+            )
+            return
+
+        self.stdout.write(
+            self.style.SUCCESS(
+                f"✓ Versão {new_version} atualizada, commitada e enviada ao GitHub "
+                f"com a tag {tag_name}."
+            )
+        )
