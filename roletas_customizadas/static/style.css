@@ -57,6 +57,13 @@ html[data-theme="dark"] {
     --btn-text-color: #1F1B2E;
 }
 
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
 /* TITLES */
 
 h1, h2, h3 {
@@ -174,4 +181,13 @@ a {
 }
 .errorlist li {
     text-align: center;
+}
+
+.theme-icon {
+    width: 24px;
+    height: 24px;
+    background-color: var(--text-1-border-color);
+
+    mask: url("{% static 'images/dark_mode.svg' %}") center / contain no-repeat;
+    -webkit-mask: url("{% static 'images/dark_mode.svg' %}") center / contain no-repeat;
 }

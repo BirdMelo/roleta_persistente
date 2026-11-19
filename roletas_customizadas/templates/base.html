@@ -1,11 +1,24 @@
 {% load static %}
 {% block base %}
     <!DOCTYPE html>
-    <html lang="pt-br" data-theme="light">
+    <html
+        lang="pt-br"
+        data-theme="{% if user.is_authenticated %}{% if user.dark_mode %}dark{% else %}light{% endif %}{% else %}light{% endif %}"
+        data-authenticated="{{ user.is_authenticated|yesno:'true,false' }}"
+    >
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Giro!</title>
+        <script>
+            const temaGuardado = localStorage.getItem('theme');
+            if (
+                document.documentElement.dataset.authenticated !== 'true'
+                && (temaGuardado === 'dark' || temaGuardado === 'light')
+            ) {
+                document.documentElement.dataset.theme = temaGuardado;
+            }
+        </script>
         <link rel="stylesheet" href="{% static 'style.css' %}">
         {% block links %}{% endblock %}
         <script src="{% static 'scrips/toggle_dark_mode.js' %}" defer></script>
